@@ -1,4 +1,5 @@
 class JoggingTimesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_jogging_time, only: %i[ show edit update destroy ]
 
   # GET /jogging_times or /jogging_times.json
