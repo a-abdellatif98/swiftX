@@ -1,0 +1,2 @@
+class JoggingTime < ApplicationRecord
+end

@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2022-05-12
+  distanse: 1.5
+  time: 2022-05-12 00:05:06
+
+two:
+  date: 2022-05-12
+  distanse: 1.5
+  time: 2022-05-12 00:05:06
