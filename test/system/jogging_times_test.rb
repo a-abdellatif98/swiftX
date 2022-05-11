@@ -3,9 +3,7 @@
 require 'application_system_test_case'
 
 class JoggingTimesTest < ApplicationSystemTestCase
-  setup do
-    @jogging_time = jogging_times(:one)
-  end
+  setup { @jogging_time = jogging_times(:one) }
 
   test 'visiting the index' do
     visit jogging_times_url
