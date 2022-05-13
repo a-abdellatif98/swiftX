@@ -2,11 +2,14 @@
 
 class JoggingTimesController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_user_maneger!,  only: %i[index show edit update destroy]
   before_action :set_jogging_time, only: %i[show edit update destroy]
 
   # GET /jogging_times or /jogging_times.json
   def index
-    @jogging_times = JoggingTime.all
+    @jogging_times = current_user.jogging_time#.where(:date => start_date.to_time..end_date.to_time )
+
+    @avg_distance, @avg_time, @avg_speed = JoggingTime.avg(current_user)
   end
 
   # GET /jogging_times/1 or /jogging_times/1.json
@@ -22,7 +25,7 @@ class JoggingTimesController < ApplicationController
 
   # POST /jogging_times or /jogging_times.json
   def create
-    @jogging_time = JoggingTime.new(jogging_time_params)
+    @jogging_time = current_user.jogging_time.new(jogging_time_params)
 
     respond_to do |format|
       if @jogging_time.save
@@ -72,6 +75,11 @@ class JoggingTimesController < ApplicationController
   end
 
   private
+
+  def authenticate_user_maneger!
+    authenticate_user!
+    # redirect_to root_path,  notice: 'YOU ARE NOT ALLOWED.' unless current_user.user_maneger?
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_jogging_time

@@ -1,7 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Jogging times</h1>
-
+<%= current_user.admin? %>
 <div id="jogging_times">
   <% @jogging_times.each do |jogging_time| %>
     <%= render jogging_time %>
@@ -9,6 +9,23 @@
       <%= link_to "Show this jogging time", jogging_time %>
     </p>
   <% end %>
+</div>
+
+<div>
+avg_distance = 
+<%= @avg_distance%>
+</div>
+
+<div>
+avg_time = 
+<%= @avg_time%>
+</div>
+
+
+
+<div>
+avg_speed = 
+<%= @avg_speed%>
 </div>
 
 <%= link_to "New jogging time", new_jogging_time_path %>
