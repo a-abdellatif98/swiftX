@@ -9,5 +9,5 @@ class User < ApplicationRecord
          :rememberable,
          :validatable
 
-  has_many :jogging_time,  dependent: :destroy
+  has_many :jogging_time, dependent: :destroy
 end

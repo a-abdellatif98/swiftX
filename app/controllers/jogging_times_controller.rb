@@ -2,12 +2,13 @@
 
 class JoggingTimesController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_user_maneger!,  only: %i[index show edit update destroy]
+  before_action :authenticate_user_maneger!,
+                only: %i[index show edit update destroy]
   before_action :set_jogging_time, only: %i[show edit update destroy]
 
   # GET /jogging_times or /jogging_times.json
   def index
-    @jogging_times = current_user.jogging_time#.where(:date => start_date.to_time..end_date.to_time )
+    @jogging_times = current_user.jogging_time # .where(:date => start_date.to_time..end_date.to_time )
 
     @avg_distance, @avg_time, @avg_speed = JoggingTime.avg(current_user)
   end
