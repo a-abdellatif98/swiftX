@@ -56,6 +56,10 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'rubocop-rails', require: false
   gem 'prettier'
+  gem 'factory_bot_rails'
+  gem 'faker', '~> 2.10'
+  gem 'rspec-rails', '~> 4.0.1'
+  gem 'rswag-specs'
 end
 
 group :development do

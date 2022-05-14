@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
       sessions: 'users/sessions'
     }
-  end
+  
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
+    get "/login" => "devise/sessions#new"
+    get "/register" => "devise/registrations#new"    
   end
+  resources :users
   resources :jogging_times
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
