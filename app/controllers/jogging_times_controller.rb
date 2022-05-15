@@ -2,12 +2,13 @@
 
 class JoggingTimesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_user_or_admin!, only: %i[index show edit update destroy]
   before_action :set_jogging_time, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[create update]
+  before_action :check_current_user_or_admin, only: %i[show edit update destroy]
 
   # GET /jogging_times or /jogging_times.json
   def index
-    @jogging_times = JoggingTime.all # .where(:date => start_date.to_time..end_date.to_time )
+    @jogging_times = JoggingTime.all
 
     @avg_distance, @avg_time, @avg_speed = JoggingTime.avg(current_user)
   end
@@ -26,6 +27,7 @@ class JoggingTimesController < ApplicationController
   # POST /jogging_times or /jogging_times.json
   def create
     @jogging_time = JoggingTime.new(jogging_time_params)
+    @jogging_time.user = @user
 
     respond_to do |format|
       if @jogging_time.save
@@ -45,6 +47,8 @@ class JoggingTimesController < ApplicationController
 
   # PATCH/PUT /jogging_times/1 or /jogging_times/1.json
   def update
+    @jogging_time.user = @user
+
     respond_to do |format|
       if @jogging_time.update(jogging_time_params)
         format.html do
@@ -85,5 +89,13 @@ class JoggingTimesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def jogging_time_params
     params.require(:jogging_time).permit(:date, :distanse, :time)
+  end
+
+  def check_current_user_or_admin
+    redirect_to root_path unless current_user == @jogging_time.user || current_user.admin?
+  end
+
+  def set_user
+    @user = current_user.admin? ? User.find(params[user_id]) : current_user
   end
 end

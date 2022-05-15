@@ -8,16 +8,6 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <div class="field">
-    <%= f.label :admin %>
-    <%= f.check_box :admin %>
-  </div>
-
- <div class="field">
-    <%= f.label :user_maneger %>
-    <%= f.check_box :user_maneger %>
-  </div>
-
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

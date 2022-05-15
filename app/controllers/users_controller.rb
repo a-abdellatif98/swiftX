@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_admin_manger!, only: %i[index show edit update destroy]
-  before_action :set_user, only: %i[ show edit update destroy ]
-  before_action :check_admin_bool, only: %i[create update]
+  before_action :authorize_admin_or_manager
+  before_action :filter_params, only: %[create update]
+  before_action :set_user, only: %i[show edit update destroy]
+
   # GET /users or /users.json
   def index
     @users = User.all
@@ -61,18 +62,20 @@ class UsersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
 
     # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :admin, :user_maneger)
-    end
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :permission_level)
+  end
 
-    def check_admin_bool
-      if current_user.user_maneger?
-        user_params[admin] = false
-      end
-    end
+  def authorize_admin_or_manager
+    redirect_to root_path if current_user.user?
+  end
+
+  def filter_params
+    user_params.delete(:permission_level) if current_user.manager?
+  end
 end
