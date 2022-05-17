@@ -1,4 +1,8 @@
 #!/usr/bin/env ruby
-require_relative "../config/boot"
-require "rake"
+require_relative '../config/boot'
+require 'rake'
+require 'rubocop/rake_task'
+
+RuboCop::RakeTask.new(:rubocop) { |t| t.options = ['--display-cop-names'] }
+
 Rake.application.run
