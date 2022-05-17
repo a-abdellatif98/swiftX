@@ -4,6 +4,7 @@ class JoggingTime < ApplicationRecord
   belongs_to :user
 
   def self.avg(user)
+    # where('created_at >= ?', 7.day.ago).group_by{|m| m.created_at.day }
     distance = 0
     user.jogging_time.map { |x| distance += x.distanse }
     avg_distance =

@@ -80,7 +80,6 @@ class JoggingTimesController < ApplicationController
 
   private
 
-  
   # Use callbacks to share common setup or constraints between actions.
   def set_jogging_time
     @jogging_time = JoggingTime.find(params[:id])
@@ -92,7 +91,9 @@ class JoggingTimesController < ApplicationController
   end
 
   def check_current_user_or_admin
-    redirect_to root_path unless current_user == @jogging_time.user || current_user.admin?
+    unless current_user == @jogging_time.user || current_user.admin?
+      redirect_to root_path
+    end
   end
 
   def set_user

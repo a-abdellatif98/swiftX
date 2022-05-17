@@ -18,8 +18,8 @@ default: &default
   adapter: postgresql
   encoding: utf8
   host: localhost
-  username: postgres
-  password:
+  username: ahmed
+  password: ahmed
   timeout: 5000
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
